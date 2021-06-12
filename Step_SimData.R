@@ -80,7 +80,7 @@ save (
 
 cor(trial_data.synthetic)
 
-#install.packages("Hmisc", dependencies = TRUE)
+install.packages("Hmisc", dependencies = TRUE)
 library("Hmisc")
 res2 <- rcorr(as.matrix(trial_data.synthetic))
 res2
