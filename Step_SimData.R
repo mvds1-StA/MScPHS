@@ -1,3 +1,10 @@
+### Obtain sample every time
+set.seed(1)
+
+### Set sample size
+number_patients = 20
+
+### Define trial_data
 trial_data.definition = 
   
   ### Defining the gender variable
@@ -28,9 +35,14 @@ trial_data.definition =
   ### Defining the age variable
   defData( varname = "age",
          dist = "uniform",
-         formula = "18;80") 
+         formula = "18;80")   %>% 
 
-#Generating the 
+  ### Defining the recruitment variable
+  defData( varname = "recruitment",
+         dist = "categorical",
+         formula = genCatFormula(0.66,0.34) ) 
+
+#Generating the data
 trial_data.synthetic = genData( number_patients,
                                 trial_data.definition )
 
@@ -78,9 +90,9 @@ save (
                 number_patients )
 )
 
-cor(trial_data.synthetic)
+#cor(trial_data.synthetic)
 
-install.packages("Hmisc", dependencies = TRUE)
-library("Hmisc")
-res2 <- rcorr(as.matrix(trial_data.synthetic))
-res2
+#install.packages("Hmisc", dependencies = TRUE)
+#library("Hmisc")
+#res2 <- rcorr(as.matrix(trial_data.synthetic))
+#res2

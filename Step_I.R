@@ -11,3 +11,5 @@ list_of_patients = tibble(
   ethnicity = xx$ethnicity,
   SIMD = xx$SIMD
 )
+
+#

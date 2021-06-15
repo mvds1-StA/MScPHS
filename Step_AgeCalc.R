@@ -2,8 +2,14 @@
 #DOB = date of birth
 #enddate = defaults to current date
 #units = in this case years
-#precise = whether or not to calculate with leap year 
+#precise = whether or not to calculate with leap year
+
+library(eeptools)
+
 data_normal %>%
+  dob = "17/05/1997"
+
+#data_normal %>%
   age_calc(dob, enddate = Sys.Date(), units = "months", precise = TRUE) %>%
   select(-dob)
 
