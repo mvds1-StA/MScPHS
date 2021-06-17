@@ -1,3 +1,5 @@
+library(dplyr)
+library(simstudy)
 ### Obtain sample every time
 set.seed(1)
 
@@ -85,14 +87,9 @@ trial_data.synthetic = trial_data.synthetic %>%
                        replace=TRUE) )
 
 save (
+  number_patients,
   trial_data.synthetic,
-  file=sprintf( "files_created/01b_SIMSAMPLE.Rdat",
+  file=sprintf( "files_created/01a_SimulatedRandomData.Rdat",
                 number_patients )
 )
 
-#cor(trial_data.synthetic)
-
-#install.packages("Hmisc", dependencies = TRUE)
-#library("Hmisc")
-#res2 <- rcorr(as.matrix(trial_data.synthetic))
-#res2
