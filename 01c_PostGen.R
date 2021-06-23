@@ -63,4 +63,4 @@ save( postcode_holder,
       file=sprintf( "files_created/01a_RANDOM-POSTCODES.Rdat",
                     number_patients ) )
 
-load("files_created/01a_RANDOM-POSTCODES.Rdat")
+

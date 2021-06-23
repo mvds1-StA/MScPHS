@@ -4,10 +4,10 @@ library(simstudy)
 set.seed(1)
 
 ### Set sample size
-number_patients = 20
+number_patients = 1200
 
 ### Define trial_data
-trial_data.definition = 
+random_data.definition = 
   
   ### Defining the gender variable
   defData( varname = "gender",
@@ -45,17 +45,17 @@ trial_data.definition =
          formula = genCatFormula(0.66,0.34) ) 
 
 #Generating the data
-trial_data.synthetic = genData( number_patients,
-                                trial_data.definition )
+random_data.synthetic = genData( number_patients,
+                                 random_data.definition )
 
 ### Updating gender to Female/Male
-trial_data.synthetic = trial_data.synthetic %>% 
+random_data.synthetic = random_data.synthetic %>% 
   mutate( gender = recode( gender,
                            "1"="Female",
                            "2"="Male") )
 
 ### Updating ethnicity to ethnicity group
-trial_data.synthetic = trial_data.synthetic %>% 
+random_data.synthetic = random_data.synthetic %>% 
   mutate( ethnicity = recode( ethnicity,
                             "1"="White Scottish/White British",
                             "2"="Other white identities",
@@ -64,7 +64,7 @@ trial_data.synthetic = trial_data.synthetic %>%
                             "5"="Mixed or other ethnic groups") )
 
 ### Updating education to education group
-trial_data.synthetic = trial_data.synthetic %>% 
+random_data.synthetic = random_data.synthetic %>% 
   mutate( socioeconomic_education = recode( socioeconomic_education,
                               "1"="No qualifications",
                               "2"="Level 1: Standard grade",
@@ -73,7 +73,7 @@ trial_data.synthetic = trial_data.synthetic %>%
                               "5"="Level 4: Degree") )
 
 ### Updating income to income group
-trial_data.synthetic = trial_data.synthetic %>% 
+random_data.synthetic = random_data.synthetic %>% 
   mutate( socioeconomic_income = recode( socioeconomic_income,
                               "1"="Not living in poverty",
                               "2"="Living in poverty after housingcosts ") )
@@ -81,15 +81,15 @@ trial_data.synthetic = trial_data.synthetic %>%
 ### Updating dob to age in years
 date_range = seq( ymd("2018-01-01"),
                   ymd("2019-12-31"), by="day")
-trial_data.synthetic = trial_data.synthetic %>% 
+random_data.synthetic = random_data.synthetic %>% 
   mutate( DOR = sample(date_range,
                        size=number_patients,
                        replace=TRUE) )
 
 save (
   number_patients,
-  trial_data.synthetic,
-  file=sprintf( "files_created/01a_SimulatedRandomData.Rdat",
+  random_data.synthetic,
+  file=sprintf( "files_created/01a_RandomData.Rdat",
                 number_patients )
 )
 
