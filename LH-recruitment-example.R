@@ -13,18 +13,32 @@ SMR1_SimulatedDataPostal = SMR1_SimulatedDataPostal %>%
                                      SEX > 2 ~ 2,
                                      TRUE ~ SEX ) )
 
+#SMR1_SimulatedDataPostal
+
+### Defining when probability of YES/NO for each gender
 SMR1_SimulatedDataPostal.tmp = SMR1_SimulatedDataPostal %>% 
   mutate( SEX_intermediate = case_when( as.numeric(SEX_corrected) == 1 ~ 0.7,
                                         as.numeric(SEX_corrected) == 2 ~ 0.3,
                                         TRUE ~ NA_real_ ) )
+#Q: Why the true NA_real_: for every row it goes through the definition, will return until it's true. If neither is true
+# you have nothing to return, that line will prevent this. 
 
+### Defining the functions of neutral recruitment and biased recruitment
 recruitment_definition.neutral = defDataAdd( varname = "RECRUITMENT_neutral",
                                              dist    = "binary",
                                              formula = 0.5 )
+
 recruitment_definition.biased = defDataAdd( varname = "RECRUITMENT_SEXbias",
                                              dist    = "binary",
                                              formula = "SEX_intermediate",
                                             link = "identity")
+#Q:What does the link stand for: not necessary for the distribution
+
+
+### Adding the columns of neutral and biased to the table
+SMR1_SimulatedDataBiasGender <- cbind(SMR1_SimulatedDataBias, c(recruitment_definition.neutral, 
+                                                                recruitment_definition.biased))
+#cannot use this because there is no data generated, it's a definition
 
 SMR1_SimulatedDataPostal.new1 = addColumns(recruitment_definition.neutral,
                                             as.data.table( SMR1_SimulatedDataPostal.tmp) )
@@ -32,6 +46,7 @@ SMR1_SimulatedDataPostal.new1 = addColumns(recruitment_definition.neutral,
 SMR1_SimulatedDataPostal.new2 = addColumns(recruitment_definition.biased,
                                             as.data.table( SMR1_SimulatedDataPostal.new1) )
 
+### Showing the results of the bias
 recruitment_summary = SMR1_SimulatedDataPostal.new2 %>% 
   pivot_longer( cols = starts_with( "RECRUITMENT_" ),
                 names_to = "recruitment_model",
@@ -49,6 +64,7 @@ recruitment_summary = SMR1_SimulatedDataPostal.new2 %>%
                         "2" = "Male" )) %>% 
   select( recruitment_model, SEX, YES, NO ) 
 
+library(janitor)
 recruitment_summary %>%
   filter( recruitment_model == "RECRUITMENT_neutral" ) %>% 
   janitor::adorn_totals( where = "col" ) %>% 

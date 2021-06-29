@@ -1,3 +1,6 @@
+### SECTION
+### This section 
+
 ### Load
 load("files_created/01d_SMR1wPostal.Rdat")
 SMR1_SimulatedDataPostal

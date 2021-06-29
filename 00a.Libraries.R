@@ -55,7 +55,7 @@ library(readxl)
 library(data.table)
 
 #Package to use the open source routing machine (OSRM)
-library(osrm)
+# library(osrm)
 
 #Extension of ggplot2
 library(GGally)
@@ -76,7 +76,7 @@ library(cowplot)
 library(simstudy)
 
 #Packge to plot the mathematical sigmoid function
-library(sigmoid)
+# library(sigmoid)
 
 #Package to coerce lists and matrices into data frames
 library(tibble)
@@ -95,4 +95,16 @@ library(RColorBrewer)
 
 #Package for building web applications 
 library(shiny)
+
+#Package for the simulation of data
+library(synthpop)
+
+#Package for the database interface
+library(DBI)
+
+#Package to connect with the database
+library(odbc)
+
+#
+library(data.table)
 

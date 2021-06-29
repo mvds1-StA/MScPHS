@@ -1,8 +1,3 @@
-### SECTION 01e_QACheck
-### This section focuses on validating the build cohort on the quality
-### and validity. 
-
-
 ### Sources of information
 #http://www.sthda.com/english/wiki/correlation-matrix-a-quick-start-guide-to-analyze-format-and-visualize-a-correlation-matrix-using-r-software
 #http://www.sthda.com/english/wiki/correlation-test-between-two-variables-in-r
@@ -44,24 +39,6 @@ colnames(table_Shapiro) <- c("Sex", "Age")
 rownames(table_Shapiro) <- c("Shapiro Test")
 table_Shapiro <- as.table(table_Shapiro)
 table_Shapiro
-
-### Scatterplots
-library("ggpubr")
-ggscatter(simulatedTrial, x = "AGE_IN_YEARS", y = "id", 
-          add = "reg.line", conf.int = TRUE, 
-          cor.coef = TRUE, cor.method = "pearson",
-          xlab = "Age in Years", ylab = "Number of participants")
-
-ggscatter(tableSimulated_SMR1, x = "AGE_IN_YEARS", y = "id", 
-          add = "reg.line", conf.int = TRUE, 
-          cor.coef = TRUE, cor.method = "pearson",
-          xlab = "Age in Years", ylab = "Number of participants")
-
-ggscatter(trial_data.synthetic, x = "age", y = "idnum", 
-          add = "reg.line", conf.int = TRUE, 
-          cor.coef = TRUE, cor.method = "pearson",
-          xlab = "Age in Years", ylab = "Number of participants")
-
 
 ### Histogram for simulated SMR1 (01c)
 ggplot(simulatedTrial, aes(x = AGE_IN_YEARS, fill = SEX)) +

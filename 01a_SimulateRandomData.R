@@ -1,10 +1,7 @@
-library(dplyr)
-library(simstudy)
-### Obtain sample every time
-set.seed(1)
-
-### Set sample size
-number_patients = 1200
+### SECTION 01a_SimulateRandomData
+### This setcion focuses on generating a random data set. The data generated will primarily be used
+### to determine which dataset (simulated SMR1 or this one) represents the original SMR1 data most 
+### appropriately. 
 
 ### Define trial_data
 random_data.definition = 
