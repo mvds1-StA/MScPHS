@@ -1,6 +1,13 @@
 ### Modelling for gender
 library(tidymodels)
 
+SMR1_SimulatedDataBiasGender.new2 <- SMR1_SimulatedDataBiasGender.new2 %>%
+  mutate(SEX = factor(SEX)) %>%
+  mutate(SEX_Bias = factor(SEX_Bias)) %>%
+  mutate(RECRUITMENT_neutral = factor(RECRUITMENT_neutral)) %>%
+  mutate(RECRUITMENT_SEXbias = factor(RECRUITMENT_SEXbias)) %>%
+  mutate(ETHNIC_GROUP = factor(ETHNIC_GROUP))
+
 set.seed(1234)
 gender_split <- initial_split(SMR1_SimulatedDataBiasGender.new2, strata = RECRUITMENT_SEXbias)
 gender_train <- training(gender_split)
@@ -42,6 +49,8 @@ glm_rs <- glm_spec %>%
     metrics = metric_set(roc_auc, sens, spec),
     control = control_resamples(save_pred = TRUE)
   )
+
+glm_rs$.notes
 
 glm_rs %>%
   collect_metrics()
