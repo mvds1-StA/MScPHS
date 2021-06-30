@@ -7,7 +7,8 @@ SMR1_SimulatedDataBiasEthnicity.new2 <- SMR1_SimulatedDataBiasEthnicity.new2 %>%
   mutate(ETHNICITY_Bias = factor(ETHNICITY_Bias)) %>%
   mutate(RECRUITMENT_neutral = factor(RECRUITMENT_neutral)) %>%
   mutate(RECRUITMENT_Ethnicitybias = factor(RECRUITMENT_Ethnicitybias)) %>%
-  mutate(SEX = factor(SEX)) 
+  mutate(SEX = factor(SEX))  %>%
+  mutate(AGE_IN_YEARS = fatcor(AGE_IN_YEARS))
 
 ### Creating the train and test data set
 set.seed(1234)
@@ -77,4 +78,17 @@ glm_rs <- glm_spec %>%
   )
 
 glm_rs %>%
-  collect_metrics()
+  collect_metrics() %>%
+  summary()
+
+
+### OPTION 3
+# Fit the model
+model <- glm( RECRUITMENT_Ethnicitybias ~., data = ethnicity_train, family = binomial)
+# Summarize the model
+summary(model)
+# Make predictions
+probabilities <- model %>% predict(ethnicity_test, type = "response")
+predicted.classes <- ifelse(probabilities > 0.5, "Yes", "No")
+# Model accuracy
+mean(predicted.classes == ethnicity_test$RECRUITMENT_Ethnicitybias)
