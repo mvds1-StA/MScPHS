@@ -1,6 +1,8 @@
 ### Modelling for gender
 library(tidymodels)
 
+SMR1_SimulatedDataBiasGender.new2 <- load("files_created/03a_BiasedGender.Rdat")
+
 ### Transforming the variables into factors
 SMR1_SimulatedDataBiasGender.new2 <- SMR1_SimulatedDataBiasGender.new2 %>%
   mutate(SEX = factor(SEX)) %>%
