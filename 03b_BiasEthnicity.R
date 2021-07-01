@@ -33,11 +33,11 @@ glimpse(SMR1_SimulatedDataComplete)
 SMR1_SimulatedDataBiasEthnicity
   
 ### Defining the functions of neutral recruitment and biased recruitment
-recruitment_definition.neutral = defDataAdd( varname = "RECRUITMENT_neutral",
+recruitment_definition.neutral = defDataAdd( varname = "RECRUITMENT_ETHNICITYneutral",
                                              dist    = "binary",
                                              formula = 0.5)
                                                
-recruitment_definition.biased = defDataAdd( varname = "RECRUITMENT_Ethnicitybias",
+recruitment_definition.biased = defDataAdd( varname = "RECRUITMENT_ETHNICITYbias",
                                             dist    = "binary",
                                             formula = "ETHNICITY_Bias")
 

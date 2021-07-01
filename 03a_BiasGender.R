@@ -14,7 +14,7 @@ SMR1_SimulatedDataBiasGender <- SMR1_SimulatedDataComplete %>%
                           SEX == 2, male_bias))
 
 ### Defining the functions of neutral recruitment and biased recruitment
-recruitment_definition.neutral = defDataAdd( varname = "RECRUITMENT_neutral",
+recruitment_definition.neutral = defDataAdd( varname = "RECRUITMENT_SEXneutral",
                                              dist    = "binary",
                                              formula = 0.5 )
 

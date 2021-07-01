@@ -9,7 +9,7 @@ seed_data <- set.seed( "5482" )
 channel <- dbConnect(odbc(), dsn="SMRA", uid=.rs.askForPassword("SMRA Username:"), pwd=.rs.askForPassword("SMRA Password:"))
 
 ### Using table_test to figure out names of variables for selection
-table_test <- tbl_df(dbGetQuery(channel, statement="SELECT
+table_test <- tibble::as_tibble(dbGetQuery(channel, statement="SELECT
 *
 FROM ANALYSIS.SMR01_PI
 WHERE rownum=1"))

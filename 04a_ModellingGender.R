@@ -1,6 +1,7 @@
 ### Modelling for gender
 library(tidymodels)
 
+### Transforming the variables into factors
 SMR1_SimulatedDataBiasGender.new2 <- SMR1_SimulatedDataBiasGender.new2 %>%
   mutate(SEX = factor(SEX)) %>%
   mutate(SEX_Bias = factor(SEX_Bias)) %>%
@@ -8,11 +9,13 @@ SMR1_SimulatedDataBiasGender.new2 <- SMR1_SimulatedDataBiasGender.new2 %>%
   mutate(RECRUITMENT_SEXbias = factor(RECRUITMENT_SEXbias)) %>%
   mutate(ETHNIC_GROUP = factor(ETHNIC_GROUP))
 
+### Creating the train and test data set
 set.seed(1234)
 gender_split <- initial_split(SMR1_SimulatedDataBiasGender.new2, strata = RECRUITMENT_SEXbias)
 gender_train <- training(gender_split)
 gender_test <- testing(gender_split)
 
+### 
 gender_rec <- recipe(RECRUITMENT_SEXbias ~ ., data = gender_train) %>%
   step_corr(all_numeric()) %>%
   step_dummy(all_nominal(), -all_outcomes()) %>%
@@ -54,3 +57,16 @@ glm_rs$.notes
 
 glm_rs %>%
   collect_metrics()
+
+
+### OPTION 3
+# Fit the model
+modelGender <- glm( RECRUITMENT_SEXbias ~., data = gender_train, family = binomial)
+# Summarize the model
+summary(modelGender)
+# Make predictions
+probabilities <- modelGender %>% predict(gender_test, type = "response")
+predicted.classes <- ifelse(probabilities > 0.5, "Yes", "No")
+# Model accuracy
+mean(predicted.classes == gender_test$RECRUITMENT_SEXbias)
+summary(modelGender)

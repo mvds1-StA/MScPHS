@@ -31,7 +31,7 @@ simulatedNeutral
 ### Saving the file of data and values
 save (
   simulatedNeutral,
-  file=sprintf( "files_created/01C_SimulatedSMR1WRecruitment.Rdat",
+  file=sprintf( "files_created/01c_SimulatedSMR1WRecruitment.Rdat",
                   number_patients )
   )
   
