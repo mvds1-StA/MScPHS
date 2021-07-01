@@ -2,7 +2,7 @@
 ### This section biases the simulated data based on the variable gender.
 
 ### Assigning Gender bias to the dataset 
-load("files_created/01d_SMR1wPostal.Rdat")
+SMR1_SimulatedDataComplete <- load("files_created/01c_SimulatedSMR1.Rdat")
 
 ### Defining when probability of YES/NO for each gender
 ### and setting this in a function
@@ -30,3 +30,10 @@ SMR1_SimulatedDataBiasGender.new2 = addColumns(recruitment_definition.biased,
                                            as.data.table(SMR1_SimulatedDataBiasGender.new1))
 
 SMR1_SimulatedDataBiasGender.new2
+
+save (
+  SMR1_SimulatedDataBiasGender.new2,
+  file=sprintf( "files_created/03a_BiasedGender.Rdat",
+                number_patients )
+)
+

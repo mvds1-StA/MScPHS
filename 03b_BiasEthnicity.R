@@ -2,11 +2,7 @@
 ### This section biases the simulated data based on the variable ethnicity.
 
 ### Assigning Gender bias to the dataset 
-load("files_created/01d_SMR1wPostal.Rdat")
-
-
-colnames(SMR1_SimulatedDataComplete)
-
+SMR1_SimulatedDataComplete <- load(SMR1_SimulatedDataComplete)
 
 ### Defining when probability of YES/NO for each ethnicity
 ### and setting this in a function
@@ -51,3 +47,11 @@ SMR1_SimulatedDataBiasEthnicity.new2 = addColumns(recruitment_definition.biased,
                                                as.data.table(SMR1_SimulatedDataBiasEthnicity.new1))
 
 SMR1_SimulatedDataBiasEthnicity.new2
+
+save (
+  SMR1_SimulatedDataBiasEthnicity.new2,
+  file=sprintf( "files_created/03b_BiasedEthnicity.Rdat",
+                number_patients )
+)
+
+
