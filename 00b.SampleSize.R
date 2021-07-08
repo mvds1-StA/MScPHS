@@ -2,4 +2,4 @@
 set.seed(123)
 
 ### Set sample size
-number_patients = 3000
+number_patients = 100000

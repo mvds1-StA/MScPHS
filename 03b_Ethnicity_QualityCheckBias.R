@@ -1,0 +1,5 @@
+### QUALITY CONTROL CHECK ON THE BIASED DATA FOR BOTH GENDER AND ETHNICITY
+
+#Ethnicity
+count(SMR1_SimulatedDataBiasEthnicity.new2$RECRUITMENT_ETHNICITYneutral)
+count(SMR1_SimulatedDataBiasEthnicity.new2$RECRUITMENT_ETHNICITYbias)

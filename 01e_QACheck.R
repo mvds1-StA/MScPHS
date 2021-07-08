@@ -2,6 +2,10 @@
 ### This section focuses on validating the build cohort on the quality
 ### and validity. 
 
+#Count of every gender and ethnic group for QA
+count(SMR1_SimulatedDataComplete$SEX)
+count(SMR1_SimulatedDataComplete$ETHNIC_GROUP)
+
 
 ### Sources of information
 #http://www.sthda.com/english/wiki/correlation-matrix-a-quick-start-guide-to-analyze-format-and-visualize-a-correlation-matrix-using-r-software

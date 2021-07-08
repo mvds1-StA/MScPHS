@@ -21,25 +21,20 @@ random_data.definition =
   
   ### Defining the education variable
   ### https://www.scotlandscensus.gov.uk/webapi/jsf/tableView/tableView.xhtml
-  defData( varname = "socioeconomic_education",
-           dist = "categorical",
-           formula = genCatFormula(0.2679, 0.2308, 0.1433, 0.0971, 0.2609) ) %>%  
+  #defData( varname = "socioeconomic_education",
+           #dist = "categorical",
+           #formula = genCatFormula(0.2679, 0.2308, 0.1433, 0.0971, 0.2609) ) %>%  
   
   ### Defining the income variable
   ### https://www.gov.scot/publications/poverty-income-inequality-scotland-2016-19/pages/3/
-  defData( varname = "socioeconomic_income",
-           dist = "categorical",
-           formula = genCatFormula(0.81,0.19) ) %>%  
+  #defData( varname = "socioeconomic_income",
+           #dist = "categorical",
+           #formula = genCatFormula(0.81,0.19) ) %>%  
   
   ### Defining the age variable
   defData( varname = "age",
          dist = "uniform",
-         formula = "18;80")   %>% 
-
-  ### Defining the recruitment variable
-  defData( varname = "recruitment",
-         dist = "categorical",
-         formula = genCatFormula(0.66,0.34) ) 
+         formula = "18;80")   
 
 #Generating the data
 random_data.synthetic = genData( number_patients,
@@ -63,19 +58,19 @@ random_data.synthetic = random_data.synthetic %>%
                             "7"="Unknown") )
 
 ### Updating education to education group
-random_data.synthetic = random_data.synthetic %>% 
-  mutate( socioeconomic_education = recode( socioeconomic_education,
-                              "1"="No qualifications",
-                              "2"="Level 1: Standard grade",
-                              "3"="Level 2: Higher grade",
-                              "4"="Level 3: Other post-school, but pre-higher qualifications",
-                              "5"="Level 4: Degree") )
+#random_data.synthetic = random_data.synthetic %>% 
+  #mutate( socioeconomic_education = recode( socioeconomic_education,
+                              #"1"="No qualifications",
+                              #"2"="Level 1: Standard grade",
+                              #"3"="Level 2: Higher grade",
+                              #"4"="Level 3: Other post-school, but pre-higher qualifications",
+                              #"5"="Level 4: Degree") )
 
 ### Updating income to income group
-random_data.synthetic = random_data.synthetic %>% 
-  mutate( socioeconomic_income = recode( socioeconomic_income,
-                              "1"="Not living in poverty",
-                              "2"="Living in poverty after housingcosts ") )
+#random_data.synthetic = random_data.synthetic %>% 
+  #mutate( socioeconomic_income = recode( socioeconomic_income,
+                              #"1"="Not living in poverty",
+                              #"2"="Living in poverty after housingcosts ") )
 
 ### Updating dob to age in years
 date_range = seq( ymd("2018-01-01"),
@@ -86,6 +81,10 @@ random_data.synthetic = random_data.synthetic %>%
                        replace=TRUE) )
 
 random_data.synthetic
+
+## Checking the divsion across gender and ethnic groups
+table(random_data.synthetic[c("gender")])
+table(random_data.synthetic[c("ethnicity")])
 
 save (
   number_patients,

@@ -10,7 +10,7 @@ SMR1_dataSimulate <- syn(SMR1_data, m = 1, method = "parametric", visit.sequence
 SMR1_SimulatedDataComplete <- SMR1_dataSimulate$syn
 
 #table(SMR1_SimulatedDataComplete[c("ETHNIC_GROUP")])
-
+#table(SMR1_SimulatedDataComplete[c("SEX")])
 
 ### Saving the file of data and values
 save (
