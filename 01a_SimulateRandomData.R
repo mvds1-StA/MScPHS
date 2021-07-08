@@ -17,7 +17,7 @@ random_data.definition =
   ### https://www.scotlandscensus.gov.uk/webapi/jsf/tableView/tableView.xhtml
   defData( varname = "ethnicity",
            dist = "categorical",
-           formula = genCatFormula(0.92, 0.04, 0.04) ) %>%
+           formula = genCatFormula(0.40, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10) ) %>%
   
   ### Defining the education variable
   ### https://www.scotlandscensus.gov.uk/webapi/jsf/tableView/tableView.xhtml
@@ -54,11 +54,13 @@ random_data.synthetic = random_data.synthetic %>%
 ### Updating ethnicity to ethnicity group
 random_data.synthetic = random_data.synthetic %>% 
   mutate( ethnicity = recode( ethnicity,
-                            "1"="White Scottish/White British",
-                            "2"="Other white identities",
-                            "3"="Asian ethnicities",
-                            "4"="African, Caribbean or Black ethnicities",
-                            "5"="Mixed or other ethnic groups") )
+                            "1"="White",
+                            "2"="Black",
+                            "3"="Indian",
+                            "4"="Pakistani",
+                            "5"="Chinese",
+                            "6"="Other",
+                            "7"="Unknown") )
 
 ### Updating education to education group
 random_data.synthetic = random_data.synthetic %>% 
@@ -82,6 +84,8 @@ random_data.synthetic = random_data.synthetic %>%
   mutate( DOR = sample(date_range,
                        size=number_patients,
                        replace=TRUE) )
+
+random_data.synthetic
 
 save (
   number_patients,

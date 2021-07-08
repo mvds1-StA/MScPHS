@@ -4,6 +4,7 @@
 
 ### Using Synthpop to simulate the data just gathered
 library(synthpop)
+set.seed(123)
 SMR1_dataSimulate <- syn(SMR1_data, m = 1, method = "parametric", visit.sequence = c(2,1,3), k=number_patients, seed = 125)
 
 SMR1_SimulatedDataComplete <- SMR1_dataSimulate$syn
