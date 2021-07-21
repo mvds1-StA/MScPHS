@@ -25,11 +25,6 @@ ORDER BY DBMS_RANDOM.VALUE", number_patients)
 SMR1_data <- as_tibble(dbGetQuery(channel, statement=SMR1_query))
 SMR1_data
 
-## Checking the divsion across gender and ethnic groups
-table(SMR1_data[c("SEX")])
-table(SMR1_data[c("ETHNIC_GROUP")])
-
-
 ### Disconnect from the channel to not overload the system
 dbDisconnect(channel)
 

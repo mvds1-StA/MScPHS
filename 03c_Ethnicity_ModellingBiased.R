@@ -1,94 +1,75 @@
-### Modelling for ethnicity
-library(tidymodels)
+### SECTION 03c_Ethnicity_ModellingBiased
+### This section models for ethnicity in the biased dataset.
+### This work is based on the work by Julia Silge
+### https://juliasilge.com/blog/tuition-resampling/
 
-SMR1_SimulatedDataBiasEthnicity_PreModelling = SMR1_SimulatedDataBiasEthnicity.new2
-#SMR1_SimulatedDataBiasEthnicity_Modelling = as.data.frame(SMR1_SimulatedDataBiasEthnicity_PreModelling)
-
-### Transforming the variables into factors before testing any of the models
-SMR1_SimulatedDataBiasEthnicity_Modelling_Biased <- SMR1_SimulatedDataBiasEthnicity_PreModelling %>%
+### Transforming the variables into factors
+SMR1_SimulatedDataBiasEthnicity_PreModelling_Biased <- SMR1_SimulatedDataBiasEthnicity.new2 %>%
   mutate(ETHNIC_GROUP = as.factor(ETHNIC_GROUP)) %>%
   mutate(RECRUITMENT_ETHNICITYneutral = as.factor(RECRUITMENT_ETHNICITYneutral)) %>%
-  mutate(RECRUITMENT_Ethnicitybias = as.factor(RECRUITMENT_ETHNICITYbias)) %>%
+  mutate(RECRUITMENT_ETHNICITYbias = as.factor(RECRUITMENT_ETHNICITYbias)) %>%
   select(-AGE_IN_YEARS) %>%
   select(-ETHNICITY_Bias )
 
-### Creating the train and test data set to be used in the models
+### Creating the train and test data set
 set.seed(12)
-ethnicity_bias_split <- initial_split(SMR1_SimulatedDataBiasEthnicity_Modelling_Biased, 
-                                 strata = RECRUITMENT_ETHNICITYbias)
-ethnicity_bias_train <- training(ethnicity_bias_split)
-ethnicity_bias_test <- testing(ethnicity_bias_split)
+ethnicity_biased_split <- initial_split(SMR1_SimulatedDataBiasEthnicity_PreModelling_Biased, 
+                                         strata = RECRUITMENT_ETHNICITYbias)
+ethnicity_biased_train <- training(ethnicity_biased_split)
+ethnicity_biased_test <- testing(ethnicity_biased_split)
 
-#subset(ethnicity_bias_train, ETHNIC_GROUP == "07")
-
-#which(ethnicity_bias_test$ETHNIC_GROUP == "07")
-
-### Ensuring that there is one 07 ethnicity in both test and train
-### This is a HACK to make the code work
-#rbind(ethnicity_bias_test, ethnicity_bias_train[1900,])
-
-
-#nrow(ethnicity_train)
-#nrow(ethnicity_test)
-
-# Developing the model based on train data
+### Developing the model based on train data
 set.seed(12)
-LG_Ethnicity_Biased <- logistic_reg() %>%
+ethnicity_biased_logistic_model <- logistic_reg() %>%
   
-  # Set the engine
+  ### Set the engine
   set_engine("glm") %>%
   
-  # Set the mode
+  ### Set the mode
   set_mode("classification") %>%
   
-  # Fit the model
-  fit(RECRUITMENT_Ethnicitybias~., data = ethnicity_bias_train)
+  ### Fit the model
+  fit(RECRUITMENT_ETHNICITYbias~., data = ethnicity_biased_train)
 
-tidy(LG_Ethnicity_Biased) 
+tidy(ethnicity_biased_logistic_model) 
 
-
-# Testing the model: Class prediction-
-pred_class <- predict(LG_Ethnicity_Biased,
-                      new_data = ethnicity_bias_test,
+### Class prediction
+pred_class <- predict(ethnicity_biased_logistic_model,
+                      new_data = ethnicity_biased_test,
                       type = "class")
 
-# Testing the model: Prediction Probabilities
-pred_prob <- predict(LG_Ethnicity_Biased,
-                     new_data = ethnicity_bias_test,
+### Prediction Probabilities
+pred_prob <- predict(ethnicity_biased_logistic_model,
+                     new_data = ethnicity_biased_test,
                      type = "prob")
 
-# Final data preperation for model evaluation
-recruitment_ethnicity_Biased <- ethnicity_bias_test %>%
-  select(RECRUITMENT_Ethnicitybias) %>%
+### Final data preperation for model evaluation
+recruitment_ethnicity_biased <- ethnicity_biased_test %>%
+  select(RECRUITMENT_ETHNICITYbias) %>%
   bind_cols(pred_class, pred_prob)
 
-recruitment_ethnicity_Biased
-
-#Model evaluation with the matrix
-conf_mat(recruitment_ethnicity_Biased, truth = RECRUITMENT_Ethnicitybias,
+### Model evaluation with the matrix
+conf_mat(recruitment_ethnicity_biased, truth = RECRUITMENT_ETHNICITYbias,
          estimate = .pred_class)
 
-#Model evlauation with the accuracy
-accuracy(recruitment_ethnicity_Biased, truth = RECRUITMENT_Ethnicitybias,
+### Model evlauation with the accuracy
+accuracy(recruitment_ethnicity_biased, truth = RECRUITMENT_ETHNICITYbias,
          estimate = .pred_class)
 
-#Model evaluation with sensitivity
-sens(recruitment_ethnicity_Biased, truth = RECRUITMENT_Ethnicitybias,
+### Model evaluation with sensitivity
+sens(recruitment_ethnicity_biased, truth = RECRUITMENT_ETHNICITYbias,
      estimate = .pred_class)
 
-#Model evaluation with specifity 
-spec(recruitment_ethnicity_Biased, truth = RECRUITMENT_Ethnicitybias,
+### Model evaluation with specifity 
+spec(recruitment_ethnicity_biased, truth = RECRUITMENT_ETHNICITYbias,
      estimate = .pred_class)
 
-#Model evaluation with precision
-precision(recruitment_ethnicity_Biased, truth = RECRUITMENT_Ethnicitybias,
+### Model evaluation with precision
+precision(recruitment_ethnicity_biased, truth = RECRUITMENT_ETHNICITYbias,
           estimate = .pred_class)
 
-#Model evaluation metrics in one list
+### Model evaluation metrics in one list
 custom_metrics <- metric_set(accuracy, sens, spec, precision)
-custom_metrics(recruitment_ethnicity_Biased,
-               truth = RECRUITMENT_Ethnicitybias,
+custom_metrics(recruitment_ethnicity_biased, 
+               truth = RECRUITMENT_ETHNICITYbias,
                estimate = .pred_class)
-
-
-
