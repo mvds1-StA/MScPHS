@@ -37,6 +37,9 @@ LG_ethnicity_random_Neutral <- logistic_reg() %>%
 
 tidy(LG_ethnicity_random_Neutral) 
 
+### Calculating the Odds Ratio
+tidy(LG_ethnicity_random_Neutral, exponentiate = TRUE)
+
 ### Testing the model: Class prediction
 pred_class <- predict(LG_ethnicity_random_Neutral,
                                               new_data = ethnicity_random_neutral_test,

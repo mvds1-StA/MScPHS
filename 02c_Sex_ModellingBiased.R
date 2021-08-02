@@ -36,6 +36,8 @@ LG_Gender_Biased <- logistic_reg() %>%
 
 tidy(LG_Gender_Biased) 
 
+### Calculating the Odds Ratio
+tidy(LG_Gender_Biased, exponentiate = TRUE)
 
 ### Testing the model: Class prediction
 ### First gave different names to each of the classes such that the code was more 

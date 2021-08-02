@@ -37,6 +37,9 @@ LG_ethnicity_random_Biased <- logistic_reg() %>%
 
 tidy(LG_ethnicity_random_Biased) 
 
+### Calculating the Odds Ratio
+tidy(LG_ethnicity_random_Biased, exponentiate = TRUE)
+
 ### Testing the model: Class prediction-
 pred_class <- predict(LG_ethnicity_random_Biased,
                       new_data = ethnicity_random_biased_test,

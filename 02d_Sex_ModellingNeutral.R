@@ -24,6 +24,8 @@ LG_Gender_Neutral = logistic_reg() %>%
 
 tidy(LG_Gender_Neutral) 
 
+### Calculating the Odds Ratio
+tidy(LG_Gender_Neutral, exponentiate = TRUE)
 
 ### Testing the model: Class prediction-
 pred_class = predict(LG_Gender_Neutral,
